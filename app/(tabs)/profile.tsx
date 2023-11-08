@@ -1,8 +1,18 @@
-import { View, Text } from 'react-native';
+import { useAuth } from '@clerk/clerk-expo';
+import { Link } from 'expo-router';
+import { View, Text, Button } from 'react-native';
 const Page = () => {
+  const { signOut, isSignedIn } = useAuth();
+
   return (
     <View>
-      <Text>profile</Text>
+      {!isSignedIn ? (
+        <Link href={'/(modals)/login'}>
+          <Text>Login</Text>
+        </Link>
+      ) : (
+        <Button title='Log out' onPress={() => signOut()} />
+      )}
     </View>
   );
 };
